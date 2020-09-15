@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="init_main_layout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="505.0" prefWidth="385.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chmnu.project.controllers.InitializePanel">
+   <children>
+      <AnchorPane layoutX="9.0" layoutY="6.0" prefHeight="146.0" prefWidth="367.0" style="-fx-border-color: black; -fx-border-width: 1;">
+         <children>
+            <ComboBox fx:id="source_box" layoutX="96.0" layoutY="37.0" onHidden="#onChangeSource" prefHeight="22.0" prefWidth="257.0" />
+            <Label layoutX="15.0" layoutY="37.0" prefHeight="22.0" prefWidth="68.0" text="Source:" />
+             <Label layoutX="15.0" layoutY="74.0" prefHeight="22.0" prefWidth="68.0" text="Link:" />
+             <Label layoutX="15.0" layoutY="110.0" prefHeight="22.0" prefWidth="68.0" text="Chosen file:" />
+            <TextField fx:id="link_field" editable="false" layoutX="96.0" layoutY="74.0" prefHeight="22.0" prefWidth="257.0" promptText="this will be files link" />
+            <ComboBox fx:id="file_names_box" layoutX="96.0" layoutY="110.0" prefHeight="22.0" prefWidth="257.0" />
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="3.0" prefHeight="22.0" prefWidth="363.0" text="Initializing data" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="9.0" layoutY="167.0" prefHeight="146.0" prefWidth="367.0" style="-fx-border-color: black; -fx-border-width: 1;">
+         <children>
+            <CheckBox fx:id="region_check" layoutX="14.0" layoutY="42.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="74.0" text="Region" />
+            <CheckBox fx:id="confirmed_check" layoutX="14.0" layoutY="75.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="74.0" text="Confirmed" />
+            <CheckBox fx:id="death_check" layoutX="14.0" layoutY="111.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="74.0" text="Death" />
+            <CheckBox fx:id="recovered_check" layoutX="190.0" layoutY="42.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="74.0" text="Recovered" />
+            <CheckBox fx:id="active_check" layoutX="190.0" layoutY="75.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="74.0" text="Active" />
+            <CheckBox fx:id="rate_check" layoutX="190.0" layoutY="111.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="74.0" text="Rate" />
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="6.0" prefHeight="22.0" prefWidth="363.0" text="Automatic data corruption" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="region_value" editable="false" layoutX="96.0" layoutY="39.0" prefHeight="22.0" prefWidth="81.0" promptText="only numbers" />
+            <TextField fx:id="confirmed_value" editable="false" layoutX="96.0" layoutY="73.0" prefHeight="22.0" prefWidth="81.0" promptText="only numbers" />
+            <TextField fx:id="death_value" editable="false" layoutX="96.0" layoutY="109.0" prefHeight="22.0" prefWidth="81.0" promptText="only numbers" />
+            <TextField fx:id="recovered_value" editable="false" layoutX="272.0" layoutY="37.0" prefHeight="22.0" prefWidth="81.0" promptText="only numbers" />
+            <TextField fx:id="active_value" editable="false" layoutX="272.0" layoutY="71.0" prefHeight="22.0" prefWidth="81.0" promptText="only numbers" />
+            <TextField fx:id="rate_value" editable="false" layoutX="272.0" layoutY="107.0" prefHeight="22.0" prefWidth="81.0" promptText="only numbers" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="11.0" layoutY="327.0" prefHeight="122.0" prefWidth="363.0" style="-fx-border-color: black; -fx-border-width: 1;">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-2.0" layoutY="12.0" prefHeight="22.0" prefWidth="357.0" text="Save Settings" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="24.0" layoutY="46.0" prefHeight="22.0" prefWidth="120.0" text="Save init data directory:" />
+            <TextField fx:id="init_data_field" editable="false" layoutX="150.0" layoutY="46.0" prefHeight="22.0" prefWidth="184.0" promptText="ender folder for init data" />
+            <Label layoutX="24.0" layoutY="80.0" prefHeight="22.0" prefWidth="120.0" text="Save processed data:" />
+            <TextField fx:id="processed_data_field" editable="false" layoutX="150.0" layoutY="80.0" prefHeight="22.0" prefWidth="184.0" promptText="enter folder for processed data" />
+         </children>
+      </AnchorPane>
+      <Button fx:id="start_button" layoutX="91.0" layoutY="462.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="204.0" text="Start Processing " />
+   </children>
+</AnchorPane>
