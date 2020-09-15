@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="jackson-dataformat-yaml-2.11.2">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/jackson-dataformat-yaml-2.11.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/chmnu/libs/jackson-dataformat-yaml-2.11.2.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
