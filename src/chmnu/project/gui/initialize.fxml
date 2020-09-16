@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="init_main_layout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="505.0" prefWidth="385.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chmnu.project.controllers.InitializePanel">
+<AnchorPane fx:id="init_main_layout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="385.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chmnu.project.controllers.InitializePanel">
    <children>
       <AnchorPane layoutX="9.0" layoutY="6.0" prefHeight="146.0" prefWidth="367.0" style="-fx-border-color: black; -fx-border-width: 1;">
          <children>
@@ -42,9 +42,9 @@
             <TextField fx:id="rate_value" editable="false" layoutX="272.0" layoutY="107.0" prefHeight="22.0" prefWidth="81.0" promptText="only numbers" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="11.0" layoutY="327.0" prefHeight="122.0" prefWidth="363.0" style="-fx-border-color: black; -fx-border-width: 1;">
+      <AnchorPane layoutX="9.0" layoutY="330.0" prefHeight="114.0" prefWidth="367.0" style="-fx-border-color: black; -fx-border-width: 1;">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-2.0" layoutY="12.0" prefHeight="22.0" prefWidth="357.0" text="Save Settings" textAlignment="CENTER" wrapText="true">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-2.0" layoutY="12.0" prefHeight="22.0" prefWidth="357.0" text="Saving files" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font size="14.0" />
                </font>
@@ -55,6 +55,18 @@
             <TextField fx:id="processed_data_field" editable="false" layoutX="150.0" layoutY="80.0" prefHeight="22.0" prefWidth="184.0" promptText="enter folder for processed data" />
          </children>
       </AnchorPane>
-      <Button fx:id="start_button" layoutX="91.0" layoutY="462.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="204.0" text="Start Processing " />
+      <Button fx:id="start_button" layoutX="91.0" layoutY="557.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="204.0" text="Start Processing " />
+      <AnchorPane layoutX="9.0" layoutY="460.0" prefHeight="83.0" prefWidth="367.0" style="-fx-border-color: black; -fx-border-width: 1;">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-2.0" layoutY="12.0" prefHeight="22.0" prefWidth="363.0" text="Settings" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Button fx:id="set_config_button" layoutX="17.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#setYourConfig" prefHeight="22.0" prefWidth="100.0" text="Set Your Config" />
+            <Button fx:id="set_default_button" layoutX="132.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#setDefaultConfig" prefHeight="22.0" prefWidth="100.0" text="Set Default" />
+            <Button fx:id="save_current_button" layoutX="247.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#saveConfig" prefHeight="22.0" prefWidth="100.0" text="Save Current" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
