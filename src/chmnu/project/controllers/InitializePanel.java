@@ -1,6 +1,6 @@
 package chmnu.project.controllers;
 
-import chmnu.project.config.ConfigManager;
+import chmnu.project.config.SettingsManager;
 import chmnu.project.config.entity.CorruptSettings;
 import chmnu.project.config.entity.MainSettings;
 import chmnu.project.config.entity.SaveSettings;
@@ -43,6 +43,9 @@ public class InitializePanel {
     @FXML TextField processed_data_field;
     @FXML Button start_button;
 
+    @FXML private MainSettings settings = new MainSettings();
+    @FXML private SettingsManager manager = new SettingsManager();
+
     public void initialize () throws IOException, InterruptedException {
         ObservableList<String> sources = FXCollections.observableArrayList("github", "gitlab", "test");
         source_box.setItems(sources);
@@ -54,7 +57,9 @@ public class InitializePanel {
         file_names_box.setValue(files.get(0));
 
         initMaps();
-        setYourConfig();
+
+        settings = manager.getSettings();
+        setSettings();
     }
 
     @FXML
@@ -66,22 +71,21 @@ public class InitializePanel {
     }
 
     @FXML
-    public void setYourConfig () throws IOException {
-        MainSettings settings = new ConfigManager().getSettings();
-        setSettings(settings);
+    public void setYourConfig () {
+        setSettings();
     }
 
     @FXML
     public void setDefaultConfig () throws IOException {
-        new ConfigManager().setDefaultSettings();
-        MainSettings settings = new ConfigManager().getSettings();
-        setSettings(settings);
+        manager.setDefaultSettings();
+        settings = manager.getSettings();
+        setSettings();
     }
 
     @FXML
     public void saveConfig () throws IOException {
-        MainSettings settings = getSettings();
-        new ConfigManager().saveSettings(settings);
+        settings = getSettings();
+        manager.saveSettings(settings);
     }
 
     private void initMaps () {
@@ -100,16 +104,16 @@ public class InitializePanel {
         textFieldHashMap.put("Rate", rate_value);
     }
 
-    private void setSettings (MainSettings this_settings) {
-        link_field.setText(this_settings.getSource());
+    private void setSettings () {
+        link_field.setText(settings.getSource());
 
-        this_settings.getCorruption().forEach(x -> {
+        settings.getCorruption().forEach(x -> {
             checkBoxHashMap.get(x.getNameAttribute()).setSelected(x.getEnable());
             textFieldHashMap.get(x.getNameAttribute()).setText(x.getValue().toString());
         });
 
-        init_data_field.setText(this_settings.getSaveSettings().getInitFolder());
-        processed_data_field.setText(this_settings.getSaveSettings().getProcessedFolder());
+        init_data_field.setText(settings.getSaveSettings().getInitFolder());
+        processed_data_field.setText(settings.getSaveSettings().getProcessedFolder());
     }
 
     private MainSettings getSettings () {

@@ -5,7 +5,7 @@ public class CorruptSettings {
     private Boolean enable;
     private Integer value;
 
-    public CorruptSettings () {
+    public CorruptSettings() {
     }
 
     public CorruptSettings(String nameAttribute, Boolean enable, Integer value) {
