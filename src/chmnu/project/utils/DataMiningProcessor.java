@@ -1,8 +1,10 @@
 package chmnu.project.utils;
 
 import chmnu.project.csv.tables.ConvertedTable;
+import javafx.util.Pair;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 public class DataMiningProcessor {
@@ -20,7 +22,12 @@ public class DataMiningProcessor {
     private Integer Active_count;
     private Integer Incident_Rate_count;
 
+    private HashMap<Pair<Integer, Integer>, String> rate_value = new HashMap<>();
+
     public DataMiningProcessor () {
+        rate_value.put(new Pair<>(0, 1500), "Low");
+        rate_value.put(new Pair<>(1500, 3000), "Medium");
+        rate_value.put(new Pair<>(3000, 5000), "High");
     }
 
     public DataMiningProcessor(Boolean state_Region, Boolean confirmed, Boolean deaths, Boolean recovered, Boolean active,
@@ -56,21 +63,127 @@ public class DataMiningProcessor {
         });
 
         // restore confirm
+        List<String> confirm_values = convertedTableList.stream().map(ConvertedTable::getConfirmed).collect(Collectors.toList());
+        int middleConfirm =  findMiddleIntValue(confirm_values, 1000000);
 
+        convertedTableList.forEach( x -> {
+            x.setConfirmed(fixInsaneData(x.getConfirmed(), 1000000, middleConfirm));
+        });
+        int newMiddleConfirm = findMiddleIntValue(confirm_values, 1000000);
+
+        convertedTableList.forEach( x -> {
+            if (x.getConfirmed() == null || x.getConfirmed().equals("")) {
+                x.setConfirmed("" + newMiddleConfirm);
+            }
+        });
 
         // restore death
+        List<String> death_values = convertedTableList.stream().map(ConvertedTable::getDeaths).collect(Collectors.toList());
+        int middleDeath =  findMiddleIntValue(death_values, 100000);
 
+        convertedTableList.forEach( x -> {
+            x.setDeaths(fixInsaneData(x.getDeaths(), 100000, middleDeath));
+        });
+        int newMiddleDeath = findMiddleIntValue(death_values, 100000);
+
+        convertedTableList.forEach( x -> {
+            if (x.getDeaths() == null || x.getDeaths().equals("")) {
+                x.setDeaths("" + newMiddleDeath);
+            }
+        });
 
         // restore recovery
+        convertedTableList.forEach( x -> {
+            if (!x.getRecovered().equals("")) {
+                x.setRecovered( ((int) Double.parseDouble(x.getRecovered())) + "");
+            }
+        });
+        List<String> recovery_values = convertedTableList.stream().map(ConvertedTable::getRecovered).collect(Collectors.toList());
+        int middleRecovery =  findMiddleIntValue(recovery_values, 1000000);
 
+        convertedTableList.forEach( x -> {
+            x.setRecovered(fixInsaneData(x.getRecovered(), 1000000, middleRecovery));
+        });
+        int newMiddleRecovery = findMiddleIntValue(recovery_values, 1000000);
+
+        convertedTableList.forEach( x -> {
+            if (x.getRecovered() == null || x.getRecovered().equals("")) {
+                x.setRecovered("" + newMiddleRecovery);
+            }
+        });
 
         // restore active
+        convertedTableList.forEach( x ->
+        {
+            if (!x.getActive().equals("")) {
+                x.setActive( ((int) Double.parseDouble(x.getActive())) + "");
+            }
+        });
+        List<String> active_values = convertedTableList.stream().map(ConvertedTable::getActive).collect(Collectors.toList());
+        int middleActive =  findMiddleIntValue(active_values, 1000000);
 
+        convertedTableList.forEach( x -> {
+            x.setActive(fixInsaneData(x.getActive(), 1000000, middleActive));
+        });
+        int newMiddleActive = findMiddleIntValue(active_values, 1000000);
+
+        convertedTableList.forEach( x -> {
+            if (x.getActive() == null || x.getActive().equals("")) {
+                x.setActive("" + newMiddleActive);
+            }
+        });
 
         // restore rate
+        convertedTableList.forEach( x -> {
+            if (!x.getIncident_Rate().equals("")) {
+                x.setIncident_Rate( ((int) Double.parseDouble(x.getIncident_Rate())) + "");
+            }
+        });
+        List<String> rate_values = convertedTableList.stream().map(ConvertedTable::getIncident_Rate).collect(Collectors.toList());
+        int middleRate =  findMiddleIntValue(rate_values, 5000);
 
+        convertedTableList.forEach( x -> {
+            x.setIncident_Rate(fixInsaneData(x.getIncident_Rate(), 5000, middleRate));
+        });
+        int newMiddleRate = findMiddleIntValue(rate_values, 5000);
+
+        convertedTableList.forEach( x -> {
+            if (x.getIncident_Rate() == null || x.getIncident_Rate().equals("")) {
+                x.setIncident_Rate(findRateValue(newMiddleRate));
+            }
+        });
 
         return convertedTableList;
+    }
+
+    private String fixInsaneData (String data, Integer max_value, Integer middle) {
+        if (!data.equals("")) {
+            if (Integer.parseInt(data) > max_value) {
+                return middle + "";
+            }
+            return data;
+        }
+        else return data;
+    }
+
+    private String findRateValue (Integer value) {
+
+        AtomicReference<String> value_ = new AtomicReference<>("");
+        rate_value.forEach( (x,y) -> {
+            if (existInRange(x.getKey(), x.getValue(), value)) {
+                value_.set(y);
+            }
+        });
+
+        return value_.get();
+    }
+
+    private Boolean existInRange (Integer left, Integer right, Integer value) {
+        return value >= left && value <= right;
+    }
+
+    private int findMiddleIntValue (List<String> value_list, Integer max_value) {
+        return value_list.stream().filter( x -> !x.equals("") && Integer.parseInt(x) < max_value).mapToInt(Integer::parseInt).sum() / value_list.size();
     }
 
     private String findCorrectState (List<ConvertedTable> new_list) {

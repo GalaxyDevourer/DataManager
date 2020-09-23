@@ -18,7 +18,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("gui/initialize.fxml"));
         primaryStage.setTitle("Data Manager");
-        primaryStage.setScene(new Scene(root, 385, 600));
+        primaryStage.setScene(new Scene(root, 385, 650));
         primaryStage.show();
     }
 

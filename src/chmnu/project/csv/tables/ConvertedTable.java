@@ -19,8 +19,8 @@ public class ConvertedTable {
         State_Region = state_Region;
         Confirmed = confirmed;
         Deaths = deaths;
-        Recovered = recovered;
-        Active = active;
+        Recovered = recovered; // double
+        Active = active; // double
         Incident_Rate = incident_Rate;
     }
 
