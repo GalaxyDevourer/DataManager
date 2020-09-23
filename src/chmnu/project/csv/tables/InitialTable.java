@@ -1,30 +1,26 @@
 package chmnu.project.csv.tables;
 
+import com.opencsv.bean.CsvBindByName;
+
 public class InitialTable {
-    private static final long serialVersionUID = 1L;
-
-    private String Province_State;
-    private String Country_Region;
-    private String Last_Update;
-    private String Lat;
-    private String Long_;
-    private String Confirmed;
-    private String Deaths;
-    private String Recovered;
-    private String Active;
-    private String FIPS;
-    private String Incident_Rate;
-    private String People_Tested;
-    private String People_Hospitalized;
-    private String Mortality_Rate;
-    private String UID;
-    private String ISO3;
-    private String Testing_Rate;
-    private String Hospitalization_Rate;
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
+    @CsvBindByName private String Province_State;
+    @CsvBindByName private String Country_Region;
+    @CsvBindByName private String Last_Update;
+    @CsvBindByName private String Lat;
+    @CsvBindByName private String Long_;
+    @CsvBindByName private String Confirmed;
+    @CsvBindByName private String Deaths;
+    @CsvBindByName private String Recovered;
+    @CsvBindByName private String Active;
+    @CsvBindByName private String FIPS;
+    @CsvBindByName private String Incident_Rate;
+    @CsvBindByName private String People_Tested;
+    @CsvBindByName private String People_Hospitalized;
+    @CsvBindByName private String Mortality_Rate;
+    @CsvBindByName private String UID;
+    @CsvBindByName private String ISO3;
+    @CsvBindByName private String Testing_Rate;
+    @CsvBindByName private String Hospitalization_Rate;
 
     public String getProvince_State() {
         return Province_State;

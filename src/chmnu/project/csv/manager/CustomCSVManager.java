@@ -20,16 +20,16 @@ public class CustomCSVManager {
         List<ConvertedTable> convertedTableList = new LinkedList<>();
 
         initialTableList.forEach( x -> {
-            convertedTableList.add(new ConvertedTable(x.getProvince_State(), getKeyFromValue(statesMap, x.getCountry_Region()), x.getConfirmed(), x.getDeaths(), x.getRecovered(), x.getActive(), x.getIncident_Rate()));
+            convertedTableList.add(new ConvertedTable(x.getProvince_State(), getKeyFromValue(statesMap, x.getProvince_State()), x.getConfirmed(), x.getDeaths(), x.getRecovered(), x.getActive(), x.getIncident_Rate()));
         });
 
         return convertedTableList;
     }
 
-    private static String getKeyFromValue(Map<String, String> hm, String value) {
+    private String getKeyFromValue(Map<String, String> hm, String value) {
         for (String o : hm.keySet()) {
-            if (hm.get(o).equals(value)) {
-                return o;
+            if (o.equals(value)) {
+                return hm.get(o);
             }
         }
         return null;

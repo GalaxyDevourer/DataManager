@@ -1,15 +1,15 @@
 package chmnu.project.csv.tables;
 
-public class ConvertedTable {
-    private static final long serialVersionUID = 1L;
+import com.opencsv.bean.CsvBindByName;
 
-    private String Province_State; // name of state
-    private String State_Region; // region of state (east, west etc)
-    private Integer Confirmed;
-    private Integer Deaths;
-    private Integer Recovered;
-    private Integer Active;
-    private Integer Incident_Rate; // cases per 100k
+public class ConvertedTable {
+    @CsvBindByName private String Province_State; // name of state
+    @CsvBindByName private String State_Region; // region of state (east, west etc)
+    @CsvBindByName private String Confirmed;
+    @CsvBindByName private String Deaths;
+    @CsvBindByName private String Recovered;
+    @CsvBindByName private String Active;
+    @CsvBindByName private String Incident_Rate; // cases per 100k
 
     public ConvertedTable () {
     }
@@ -17,11 +17,27 @@ public class ConvertedTable {
     public ConvertedTable(String province_State, String state_Region, String confirmed, String deaths, String recovered, String active, String incident_Rate) {
         Province_State = province_State;
         State_Region = state_Region;
-        Confirmed = Integer.parseInt(confirmed);
-        Deaths = Integer.parseInt(deaths);
-        Recovered = Integer.parseInt(recovered);
-        Active = Integer.parseInt(active);
-        Incident_Rate = (int) Double.parseDouble(incident_Rate);
+        Confirmed = confirmed;
+        Deaths = deaths;
+        Recovered = recovered;
+        Active = active;
+        Incident_Rate = incident_Rate;
+    }
+
+    public void setConfirmed(String confirmed) {
+        Confirmed = confirmed;
+    }
+
+    public void setDeaths(String deaths) {
+        Deaths = deaths;
+    }
+
+    public void setRecovered(String recovered) {
+        Recovered = recovered;
+    }
+
+    public void setActive(String active) {
+        Active = active;
     }
 
     public String getProvince_State() {
@@ -40,43 +56,27 @@ public class ConvertedTable {
         State_Region = state_Region;
     }
 
-    public Integer getConfirmed() {
+    public String getConfirmed() {
         return Confirmed;
     }
 
-    public void setConfirmed(Integer confirmed) {
-        Confirmed = confirmed;
-    }
-
-    public Integer getDeaths() {
+    public String getDeaths() {
         return Deaths;
     }
 
-    public void setDeaths(Integer deaths) {
-        Deaths = deaths;
-    }
-
-    public Integer getRecovered() {
+    public String getRecovered() {
         return Recovered;
     }
 
-    public void setRecovered(Integer recovered) {
-        Recovered = recovered;
-    }
-
-    public Integer getActive() {
+    public String getActive() {
         return Active;
     }
 
-    public void setActive(Integer active) {
-        Active = active;
-    }
-
-    public Integer getIncident_Rate() {
+    public String getIncident_Rate() {
         return Incident_Rate;
     }
 
-    public void setIncident_Rate(Integer incident_Rate) {
+    public void setIncident_Rate(String incident_Rate) {
         Incident_Rate = incident_Rate;
     }
 }

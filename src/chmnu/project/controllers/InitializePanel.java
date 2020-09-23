@@ -4,14 +4,25 @@ import chmnu.project.config.SettingsManager;
 import chmnu.project.config.entity.CorruptSettings;
 import chmnu.project.config.entity.MainSettings;
 import chmnu.project.config.entity.SaveSettings;
+import chmnu.project.csv.manager.CustomCSVManager;
+import chmnu.project.csv.tables.ConvertedTable;
+import chmnu.project.csv.tables.InitialTable;
+import chmnu.project.utils.DataMiningProcessor;
+import chmnu.project.utils.Downloader;
+import chmnu.project.utils.MenuDisplayer;
 import chmnu.project.utils.PageParser;
+import com.opencsv.bean.CsvToBeanBuilder;
+import com.opencsv.bean.StatefulBeanToCsv;
+import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +53,11 @@ public class InitializePanel {
     @FXML TextField init_data_field;
     @FXML TextField processed_data_field;
     @FXML Button start_button;
+
+    @FXML TextField corrupted_data_field;
+    @FXML Button set_config_button;
+    @FXML Button set_default_button;
+    @FXML Button save_current_button;
 
     @FXML private MainSettings settings = new MainSettings();
     @FXML private SettingsManager manager = new SettingsManager();
@@ -88,6 +104,53 @@ public class InitializePanel {
         manager.saveSettings(settings);
     }
 
+    @FXML
+    public void startProcessing () throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
+        String init_folder = init_data_field.getText();
+        String corrupted_folder = corrupted_data_field.getText();
+        String processed_folder = processed_data_field.getText();
+        String filename = file_names_box.getValue();
+
+        // download file
+        Downloader downloader = new Downloader(link_field.getText(), init_data_field.getText());
+        downloader.downloadFile(file_names_box.getValue());
+
+        // convert file to initTable
+        String init_fullpath = init_folder + "/" + filename;
+        List<InitialTable> initialTableList = new CsvToBeanBuilder<InitialTable>(new FileReader(init_fullpath))
+                .withType(InitialTable.class).build().parse();
+
+        // convert initTable to ConvertedTable
+        CustomCSVManager csvManager = new CustomCSVManager();
+        List<ConvertedTable> convertedTableList = csvManager.convertTables(initialTableList);
+
+        // corrupting data
+
+        // save corrupting data in file
+        String corrupt_fullpath = corrupted_folder + "/" + filename;
+        Writer writer = new FileWriter(corrupt_fullpath);
+        StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build();
+        beanToCsv.write(convertedTableList);
+        writer.close();
+
+        new MenuDisplayer().dialogWarningMessage("System warning message", "Will you wish to start saving corrupted file?",
+                "When you're done, you can continue by clicking on the OK button.");
+
+        List<ConvertedTable> corruptedTableList = new CsvToBeanBuilder<ConvertedTable>(new FileReader(corrupt_fullpath))
+                .withType(ConvertedTable.class).build().parse();
+        corruptedTableList.forEach( x -> System.out.println(x.getProvince_State()));
+
+        // start processing corrupted data
+        List<ConvertedTable> processedTableList = new DataMiningProcessor().processData(corruptedTableList);
+
+        // save ConvertedTable as .csv file
+        String processed_fullpath = processed_folder + "/" + filename;
+        Writer writer_ = new FileWriter(processed_fullpath);
+        StatefulBeanToCsv beanToCsv_ = new StatefulBeanToCsvBuilder(writer_).build();
+        beanToCsv_.write(processedTableList);
+        writer_.close();
+    }
+
     private void initMaps () {
         checkBoxHashMap.put("Region", region_check);
         checkBoxHashMap.put("Confirmed", confirmed_check);
@@ -114,6 +177,7 @@ public class InitializePanel {
 
         init_data_field.setText(settings.getSaveSettings().getInitFolder());
         processed_data_field.setText(settings.getSaveSettings().getProcessedFolder());
+        corrupted_data_field.setText(settings.getSaveSettings().getCorruptedFolder());
     }
 
     private MainSettings getSettings () {
@@ -128,7 +192,8 @@ public class InitializePanel {
         List<CorruptSettings> corruptSettingsList = Arrays.asList(region, confirmed, death, recovered, active, rate);
 
         SaveSettings save = new SaveSettings("G:\\_ИНСТИТУТ\\3 КУРС\\Предмети\\MatLab\\DataManager\\initFolder",
-                "G:\\_ИНСТИТУТ\\3 КУРС\\Предмети\\MatLab\\DataManager\\processedFolder");
+                "G:\\_ИНСТИТУТ\\3 КУРС\\Предмети\\MatLab\\DataManager\\processedFolder",
+                "G:\\_ИНСТИТУТ\\3 КУРС\\Предмети\\MatLab\\DataManager\\corruptedFolder");
 
         this_settings.setSource("https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_daily_reports_us");
         this_settings.setSaveSettings(save);

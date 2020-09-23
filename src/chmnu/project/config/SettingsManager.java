@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class SettingsManager {
     private YAMLFactory yaml = new YAMLFactory();
@@ -29,7 +28,7 @@ public class SettingsManager {
         return settings;
     }
 
-    public void setDefaultSettings (String name) throws IOException {
+    public void setDefaultSettings () throws IOException {
         File cfg = new File(SETTINGS_PATH);
 
         CorruptSettings region = new CorruptSettings("Region", false, 0);
@@ -41,7 +40,8 @@ public class SettingsManager {
         List<CorruptSettings> corruptSettingsList = Arrays.asList(region, confirmed, death, recovered, active, rate);
 
         SaveSettings save = new SaveSettings("G:\\_ИНСТИТУТ\\3 КУРС\\Предмети\\MatLab\\DataManager\\initFolder",
-                "G:\\_ИНСТИТУТ\\3 КУРС\\Предмети\\MatLab\\DataManager\\processedFolder");
+                "G:\\_ИНСТИТУТ\\3 КУРС\\Предмети\\MatLab\\DataManager\\processedFolder",
+                "G:\\_ИНСТИТУТ\\3 КУРС\\Предмети\\MatLab\\DataManager\\corruptedFolder");
 
         MainSettings settings = new MainSettings();
         settings.setSource("https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_daily_reports_us");
@@ -70,7 +70,7 @@ public class SettingsManager {
         HashMap<String, String> states = new HashMap<>();
 
         regions.getRegions().forEach(x -> x.getStates().forEach(y -> {
-            states.put(x.getRegionName(), y.getStateName());
+            states.put(y.getStateName(), x.getRegionName());
         }));
 
         return states;

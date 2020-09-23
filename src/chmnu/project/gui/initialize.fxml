@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="init_main_layout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="385.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chmnu.project.controllers.InitializePanel">
+<AnchorPane fx:id="init_main_layout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="649.0" prefWidth="385.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chmnu.project.controllers.InitializePanel">
    <children>
       <AnchorPane layoutX="9.0" layoutY="6.0" prefHeight="146.0" prefWidth="367.0" style="-fx-border-color: black; -fx-border-width: 1;">
          <children>
@@ -42,7 +42,7 @@
             <TextField fx:id="rate_value" editable="false" layoutX="272.0" layoutY="107.0" prefHeight="22.0" prefWidth="81.0" promptText="only numbers" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="9.0" layoutY="330.0" prefHeight="114.0" prefWidth="367.0" style="-fx-border-color: black; -fx-border-width: 1;">
+      <AnchorPane layoutX="9.0" layoutY="330.0" prefHeight="158.0" prefWidth="367.0" style="-fx-border-color: black; -fx-border-width: 1;">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-2.0" layoutY="12.0" prefHeight="22.0" prefWidth="357.0" text="Saving files" textAlignment="CENTER" wrapText="true">
                <font>
@@ -53,10 +53,12 @@
             <TextField fx:id="init_data_field" editable="false" layoutX="150.0" layoutY="46.0" prefHeight="22.0" prefWidth="184.0" promptText="ender folder for init data" />
             <Label layoutX="24.0" layoutY="80.0" prefHeight="22.0" prefWidth="120.0" text="Save processed data:" />
             <TextField fx:id="processed_data_field" editable="false" layoutX="150.0" layoutY="80.0" prefHeight="22.0" prefWidth="184.0" promptText="enter folder for processed data" />
+            <Label layoutX="22.0" layoutY="115.0" prefHeight="22.0" prefWidth="120.0" text="Save corrupted data:" />
+            <TextField fx:id="corrupted_data_field" editable="false" layoutX="150.0" layoutY="115.0" prefHeight="22.0" prefWidth="184.0" promptText="enter folder for corrupted data" />
          </children>
       </AnchorPane>
-      <Button fx:id="start_button" layoutX="91.0" layoutY="557.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="204.0" text="Start Processing " />
-      <AnchorPane layoutX="9.0" layoutY="460.0" prefHeight="83.0" prefWidth="367.0" style="-fx-border-color: black; -fx-border-width: 1;">
+      <Button fx:id="start_button" layoutX="91.0" layoutY="606.0" mnemonicParsing="false" onMouseClicked="#startProcessing" prefHeight="29.0" prefWidth="204.0" text="Start Processing " />
+      <AnchorPane layoutX="10.0" layoutY="505.0" prefHeight="83.0" prefWidth="367.0" style="-fx-border-color: black; -fx-border-width: 1;">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-2.0" layoutY="12.0" prefHeight="22.0" prefWidth="363.0" text="Settings" textAlignment="CENTER" wrapText="true">
                <font>

@@ -1,5 +1,5 @@
 ---
-source: "https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_daily_reports_us"
+source: "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports_us"
 corruption:
 - nameAttribute: "Region"
   enable: false
@@ -22,3 +22,4 @@ corruption:
 saveSettings:
   initFolder: "G:\\_ИНСТИТУТ\\3 КУРС\\Предмети\\MatLab\\DataManager\\initFolder"
   processedFolder: "G:\\_ИНСТИТУТ\\3 КУРС\\Предмети\\MatLab\\DataManager\\processedFolder"
+  corruptedFolder: "G:\\_ИНСТИТУТ\\3 КУРС\\Предмети\\MatLab\\DataManager\\corruptedFolder"

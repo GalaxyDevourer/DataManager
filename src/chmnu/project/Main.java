@@ -20,7 +20,6 @@ public class Main extends Application {
         primaryStage.setTitle("Data Manager");
         primaryStage.setScene(new Scene(root, 385, 600));
         primaryStage.show();
-
     }
 
     public static void main(String[] args) {

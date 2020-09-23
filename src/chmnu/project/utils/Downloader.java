@@ -33,8 +33,8 @@ public class Downloader {
 
     public void downloadFile (String filename) {
         try {
-            URL urlImage = new URL(url);
-            InputStream in = urlImage.openStream();
+            URL fileURL = new URL(url + "/" + filename);
+            InputStream in = fileURL.openStream();
 
             OutputStream os = new FileOutputStream( path + "/" + filename);
             byte[] buffer = new byte[4096];
