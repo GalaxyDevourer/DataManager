@@ -48,8 +48,6 @@ public class DataMiningProcessor {
     */
 
     public List<ConvertedTable> processData (List<ConvertedTable> convertedTableList) {
-        convertedTableList.forEach( x -> System.out.println(x.getProvince_State()));
-
         // restore region
         convertedTableList.forEach(x -> {
             if (x.getState_Region() == null || x.getState_Region().equals("")) {

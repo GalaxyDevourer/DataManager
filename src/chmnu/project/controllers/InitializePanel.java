@@ -138,7 +138,6 @@ public class InitializePanel {
 
         List<ConvertedTable> corruptedTableList = new CsvToBeanBuilder<ConvertedTable>(new FileReader(corrupt_fullpath))
                 .withType(ConvertedTable.class).build().parse();
-        corruptedTableList.forEach( x -> System.out.println(x.getProvince_State()));
 
         // start processing corrupted data
         List<ConvertedTable> processedTableList = new DataMiningProcessor().processData(corruptedTableList);
